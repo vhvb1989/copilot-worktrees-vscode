@@ -1,0 +1,12 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- trunk -->
+  <line x1="8" y1="4" x2="8" y2="20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  <!-- branch -->
+  <path d="M8 12 Q12 12 14 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <!-- dots -->
+  <circle cx="8" cy="4" r="2" fill="currentColor"/>
+  <circle cx="8" cy="20" r="2" fill="currentColor"/>
+  <circle cx="14" cy="8" r="2" fill="currentColor"/>
+  <!-- terminal prompt on branch -->
+  <text x="17" y="10" font-size="8" font-family="monospace" fill="currentColor">›_</text>
+</svg>
