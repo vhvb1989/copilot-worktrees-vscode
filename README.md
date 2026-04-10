@@ -4,8 +4,6 @@ A VS Code extension that brings **git worktree management** to your sidebar — 
 
 Think of it like the Remote Explorer panel, but for git worktrees + Copilot.
 
-![Copilot Worktrees](media/worktree.svg)
-
 ## Features
 
 ### 🌲 Sidebar Worktree Panel
