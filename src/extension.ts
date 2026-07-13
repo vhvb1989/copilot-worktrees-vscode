@@ -4,7 +4,8 @@ import { GitWorktreeService } from './gitWorktreeService';
 import { WorktreeItem } from './worktreeItem';
 
 export function activate(context: vscode.ExtensionContext) {
-    const gitService = new GitWorktreeService();
+    const workspaceRoot = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
+    const gitService = new GitWorktreeService(workspaceRoot);
     const provider = new WorktreeProvider(gitService);
 
     const treeView = vscode.window.createTreeView('copilotWorktrees', {

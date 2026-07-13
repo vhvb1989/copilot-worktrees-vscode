@@ -10,6 +10,8 @@ export interface Worktree {
 }
 
 export class GitWorktreeService {
+    constructor(private cwd?: string) {}
+
     async getRepoRoot(): Promise<string> {
         return this.git('rev-parse', '--show-toplevel');
     }
@@ -94,7 +96,7 @@ export class GitWorktreeService {
 
     private git(...args: string[]): Promise<string> {
         return new Promise((resolve, reject) => {
-            child_process.execFile('git', args, { maxBuffer: 1024 * 1024 }, (err, stdout) => {
+            child_process.execFile('git', args, { cwd: this.cwd, maxBuffer: 1024 * 1024 }, (err, stdout) => {
                 if (err) {
                     reject(err);
                 } else {
