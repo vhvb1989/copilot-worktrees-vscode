@@ -90,8 +90,11 @@ export class GitWorktreeService {
         await this.git('worktree', 'add', wtPath, '-b', branch, base);
     }
 
-    async removeWorktree(wtPath: string): Promise<void> {
-        await this.git('worktree', 'remove', wtPath);
+    async removeWorktree(wtPath: string, force = false): Promise<void> {
+        const args = force
+            ? ['worktree', 'remove', '--force', wtPath]
+            : ['worktree', 'remove', wtPath];
+        await this.git(...args);
     }
 
     private git(...args: string[]): Promise<string> {

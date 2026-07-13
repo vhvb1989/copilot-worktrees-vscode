@@ -97,6 +97,23 @@ export function activate(context: vscode.ExtensionContext) {
                 vscode.window.showInformationMessage('Worktree removed.');
             } catch (err: unknown) {
                 const msg = err instanceof Error ? err.message : String(err);
+                if (/use --force|contains modified or untracked files|is dirty/i.test(msg)) {
+                    const forceAnswer = await vscode.window.showWarningMessage(
+                        `Worktree '${item.worktree.branch || item.worktree.path}' contains uncommitted changes. Force remove and discard these changes?`,
+                        { modal: true },
+                        'Force Remove',
+                    );
+                    if (forceAnswer !== 'Force Remove') { return; }
+                    try {
+                        await gitService.removeWorktree(item.worktree.path, true);
+                        provider.refresh();
+                        vscode.window.showInformationMessage('Worktree removed.');
+                    } catch (forceErr: unknown) {
+                        const forceMsg = forceErr instanceof Error ? forceErr.message : String(forceErr);
+                        vscode.window.showErrorMessage(`Failed to force remove worktree: ${forceMsg}`);
+                    }
+                    return;
+                }
                 vscode.window.showErrorMessage(`Failed to remove worktree: ${msg}`);
             }
         }),
